@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculator - Mubeen</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(45deg, #0a0a0a, #3a4452);
+    }
+
+    .calculator {
+      background: #1f1f1f;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+
+    #inputBox {
+      width: 100%;
+      height: 60px;
+      margin-bottom: 20px;
+      padding: 10px;
+      font-size: 28px;
+      border: none;
+      background: #333;
+      color: white;
+      text-align: right;
+      border-radius: 10px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 70px);
+      grid-gap: 12px;
+    }
+
+    .btn {
+      height: 60px;
+      font-size: 20px;
+      border: none;
+      border-radius: 50%;
+      background: #444;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      background: #666;
+    }
+
+    .operator {
+      color: #6dee0a;
+    }
+
+    .equal {
+      background-color: #fb7c14;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="inputBox" placeholder="0" readonly />
+
+    <div class="buttons">
+      <button class="btn operator" data-value="AC">AC</button>
+      <button class="btn operator" data-value="DEL">DEL</button>
+      <button class="btn operator" data-value="%">%</button>
+      <button class="btn operator" data-value="/">/</button>
+
+      <button class="btn" data-value="7">7</button>
+      <button class="btn" data-value="8">8</button>
+      <button class="btn" data-value="9">9</button>
+      <button class="btn operator" data-value="*">*</button>
+
+      <button class="btn" data-value="4">4</button>
+      <button class="btn" data-value="5">5</button>
+      <button class="btn" data-value="6">6</button>
+      <button class="btn operator" data-value="-">-</button>
+
+      <button class="btn" data-value="1">1</button>
+      <button class="btn" data-value="2">2</button>
+      <button class="btn" data-value="3">3</button>
+      <button class="btn operator" data-value="+">+</button>
+
+      <button class="btn" data-value="00">00</button>
+      <button class="btn" data-value="0">0</button>
+      <button class="btn" data-value=".">.</button>
+      <button class="btn equal" data-value="=">=</button>
+    </div>
+  </div>
+
+  <script>
+    const inputBox = document.getElementById("inputBox");
+    const buttons = document.querySelectorAll(".btn");
+
+    let expression = "";
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const value = button.getAttribute("data-value");
+
+        if (value === "AC") {
+          expression = "";
+          inputBox.value = "";
+        } else if (value === "DEL") {
+          expression = expression.slice(0, -1);
+          inputBox.value = expression;
+        } else if (value === "=") {
+          try {
+            expression = eval(expression).toString();
+            inputBox.value = expression;
+          } catch {
+            inputBox.value = "Error";
+            expression = "";
+          }
+        } else {
+          expression += value;
+          inputBox.value = expression;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
